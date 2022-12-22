@@ -125,16 +125,5 @@ while not game_over:
 if score > high_score:
     high_score = score
 
-# Display the game over screen
-while game_over:
-    window.fill(window_color)
-    game_over_text = font.render("Game Over", True, (255, 255, 255))
-    window.blit(game_over_text, (window_size[0] // 2 - game_over_text.get_width() // 2, window_size[1] // 2 - game_over_text.get_height() // 2))
-    score_text = font.render("Score: " + str(score), True, (255, 255, 255))
-    window.blit(score_text, (window_size[0] // 2 - score_text.get_width() // 2, window_size[1] // 2 + score_text.get_height()))
-    high_score_text = font.render("High Score: " + str(high_score), True, (255, 255, 255))
-    window.blit(high_score_text, (window_size[0] // 2 - high_score_text.get_width() // 2, window_size[1] // 2 + high_score_text.get_height() * 2))
-    pygame.display.update()
-
 pygame.quit()
 quit()
