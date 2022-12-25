@@ -1,3 +1,5 @@
+# This is a screen saver, you can use any png you'd like.
+
 import pygame
 import random
 
@@ -14,7 +16,7 @@ screen = pygame.display.set_mode(window_size, pygame.FULLSCREEN)
 pygame.display.set_caption("Space Screensaver")
 
 # Load the PNG image
-png = pygame.image.load("boplogo2.png")
+png = pygame.image.load("/images/BOP.png")
 
 # Set the background color
 bg_color = (0, 0, 0)
