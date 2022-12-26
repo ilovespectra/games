@@ -1,3 +1,6 @@
+# This is a screensaver I made on accident trying to make a 
+# flying through space screen saver, kept it because vibes
+
 import pygame
 import random
 
