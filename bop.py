@@ -1,4 +1,4 @@
-# This is a screen saver, you can use any png you'd like.
+# This is a screen saver, you can use any png you'd like. 'QUIT' - "CMD-Q" to escape
 
 import pygame
 import random
