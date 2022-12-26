@@ -15,8 +15,9 @@ screen = pygame.display.set_mode(window_size, pygame.FULLSCREEN)
 # Set the window title
 pygame.display.set_caption("Space Screensaver")
 
-# Load the PNG image
-png = pygame.image.load("/images/BOP.png")
+# Load the PNG image / # You will need to correct this reference, 
+# any image in your folder can be referenced directly
+png = pygame.image.load("/images/BOP.png") , ie- "BOP.png"
 
 # Set the background color
 bg_color = (0, 0, 0)
