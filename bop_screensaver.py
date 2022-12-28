@@ -45,7 +45,7 @@ while True:
     # Clear the screen
     screen.fill(bg_color)
 
-    # Add a new object to the list if there are less than 10 objects
+    # Add a new object to the list if there are less than 14 objects
     if len(objects) < 14:
         objects.append([random.randint(0, window_size[0] - obj_size), 0, random.uniform(0.6, 3)])
 
