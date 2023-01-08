@@ -7,7 +7,7 @@
 
 4 Go to your browser and type ```localhost:8080``` Your Application should run there.
 
-
+<h2> Optimist Calculator! </h2>
 The Optmist Calculator is legit! It's super easy to modify the script to include any other tokens, you just need to add the following to their corresponding sections:
 
 ```
