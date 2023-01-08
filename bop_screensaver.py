@@ -17,7 +17,7 @@ pygame.display.set_caption("Space Screensaver")
 
 # Load the PNG image / # You will need to correct this reference, 
 # any image in your folder can be referenced directly, ie- "$/games/images/bop.png"
-png = pygame.image.load("*/images/bop.png") 
+png = pygame.image.load("bop.png") 
 
 # Set the background color
 bg_color = (0, 0, 0)
