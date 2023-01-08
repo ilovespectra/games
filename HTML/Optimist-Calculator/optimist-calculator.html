@@ -9,8 +9,12 @@
         background-color: black;
         color: white;
         text-align: center;
-        font-family: 'Roboto', sans-serif;
+        font-family: 'Geneva', sans-serif;
         font-size: 25px;
+        background-image: url('lambo.gif');
+        background-size: 1000px;
+        background-repeat: no-repeat;
+        background-position: center;
       }
       #form {
         display: inline-block;
@@ -21,13 +25,13 @@
       input[type="number"] {
         width: 100px;
       }
+
     </style>
   <body>
-    <h1>The Optimist's Calculator</h1>
-    <h4><i>This calulates the value of your portfolio given the tokens regain their ATH</i></h4>
+    <br><img src="oc.png" alt="Optimist's Calculator in ASCII" width="1000"/>
+    <p><b>This calulates the value of your portfolio given the tokens regain their ATH</b></p>
     <form id="form">
-      <p>Enter the quantity of each token in your portfolio:</p><br>
-      <br>
+      <p><b>Enter the quantity of each token in your portfolio:</b></p><br>
       <label>
         BTC:
         <input type="number" id="btc-quantity" value="0" min="0" step="0.00001">
@@ -56,6 +60,10 @@
         BOP:
         <input type="number" id="bop-quantity" value="0" min="0" step="0.00001">
       </label>
+      <label>
+        BONK:
+        <input type="number" id="bonk-quantity" value="0" min="0" step="0.00001">
+      </label>
       <br>
       <button type="submit">Cross your fingers!</button>
     </form>
@@ -71,6 +79,7 @@
       const ethAllTimeHigh = 4811;
       const maticAllTimeHigh = 2.92;
       const aktAllTimeHigh = 8.08;
+      const bonkAllTimeHigh = .00000487;
 
       // Get the form element
       const form = document.querySelector('#form');
@@ -101,8 +110,11 @@
         // Get the quantity of AKT tokens from the input field
         const aktQuantity = Number(document.querySelector('#akt-quantity').value);
 
+        // Get the quantity of BONK tokens from the input field
+        const bonkQuantity = Number(document.querySelector('#bonk-quantity').value);
+
         // Calculate the total portfolio value
-        const portfolioTotal = hntQuantity * hntAllTimeHigh + btcQuantity * btcAllTimeHigh + bopQuantity * bopAllTimeHigh + solQuantity * solAllTimeHigh + ethQuantity * ethAllTimeHigh + maticQuantity * maticAllTimeHigh + aktQuantity * aktAllTimeHigh;
+        const portfolioTotal = hntQuantity * hntAllTimeHigh + btcQuantity * btcAllTimeHigh + bopQuantity * bopAllTimeHigh + solQuantity * solAllTimeHigh + ethQuantity * ethAllTimeHigh + maticQuantity * maticAllTimeHigh + aktQuantity * aktAllTimeHigh + bonkQuantity * bonkAllTimeHigh;
 
         // Get a reference to the result element
         const result = document.querySelector('#result');
