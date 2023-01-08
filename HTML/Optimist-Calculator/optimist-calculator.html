@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Optimist's Portfolio Calculator</title>
+  </head>
+  <style>
+      /* Add some styling to the page */
+      body {
+        background-color: black;
+        color: white;
+        text-align: center;
+        font-family: 'Roboto', sans-serif;
+        font-size: 25px;
+      }
+      #form {
+        display: inline-block;
+      }
+      label {
+        display: block;
+      }
+      input[type="number"] {
+        width: 100px;
+      }
+    </style>
+  <body>
+    <h1>The Optimist's Calculator</h1>
+    <h4><i>This calulates the value of your portfolio given the tokens regain their ATH</i></h4>
+    <form id="form">
+      <p>Enter the quantity of each token in your portfolio:</p><br>
+      <br>
+      <label>
+        BTC:
+        <input type="number" id="btc-quantity" value="0" min="0" step="0.00001">
+      </label>
+      <label>
+        ETH:
+        <input type="number" id="eth-quantity" value="0" min="0" step="0.00001">
+      </label>
+      <label>
+        SOL:
+        <input type="number" id="sol-quantity" value="0" min="0" step="0.00001">
+      </label>
+      <label>
+        HNT:
+        <input type="number" id="hnt-quantity" value="0" min="0" step="0.00001">
+      </label>
+      <label>
+        MATIC:
+        <input type="number" id="matic-quantity" value="0" min="0" step="0.00001">
+      </label>
+      <label>
+        AKT:
+        <input type="number" id="akt-quantity" value="0" min="0" step="0.00001">
+      </label>
+      <label>
+        BOP:
+        <input type="number" id="bop-quantity" value="0" min="0" step="0.00001">
+      </label>
+      <br>
+      <button type="submit">Cross your fingers!</button>
+    </form>
+
+    <p id="result"></p>
+
+    <script>
+      // Set the all time high prices
+      const hntAllTimeHigh = 55.22;
+      const btcAllTimeHigh = 65222;
+      const bopAllTimeHigh = 0.28;
+      const solAllTimeHigh = 259.01;
+      const ethAllTimeHigh = 4811;
+      const maticAllTimeHigh = 2.92;
+      const aktAllTimeHigh = 8.08;
+
+      // Get the form element
+      const form = document.querySelector('#form');
+
+      // Add a submit event listener to the form
+      form.addEventListener('submit', (event) => {
+        // Prevent the form from submitting
+        event.preventDefault();
+
+        // Get the quantity of HNT tokens from the input field
+        const hntQuantity = Number(document.querySelector('#hnt-quantity').value);
+
+        // Get the quantity of BTC tokens from the input field
+        const btcQuantity = Number(document.querySelector('#btc-quantity').value);
+
+        // Get the quantity of BOP tokens from the input field
+        const bopQuantity = Number(document.querySelector('#bop-quantity').value);
+
+        // Get the quantity of SOL tokens from the input field
+        const solQuantity = Number(document.querySelector('#sol-quantity').value);
+
+        // Get the quantity of ETH tokens from the input field
+        const ethQuantity = Number(document.querySelector('#eth-quantity').value);
+
+        // Get the quantity of MATIC tokens from the input field
+        const maticQuantity = Number(document.querySelector('#matic-quantity').value);
+
+        // Get the quantity of AKT tokens from the input field
+        const aktQuantity = Number(document.querySelector('#akt-quantity').value);
+
+        // Calculate the total portfolio value
+        const portfolioTotal = hntQuantity * hntAllTimeHigh + btcQuantity * btcAllTimeHigh + bopQuantity * bopAllTimeHigh + solQuantity * solAllTimeHigh + ethQuantity * ethAllTimeHigh + maticQuantity * maticAllTimeHigh + aktQuantity * aktAllTimeHigh;
+
+        // Get a reference to the result element
+        const result = document.querySelector('#result');
+
+        // Update the result element with the portfolio total
+        result.innerHTML = `Optimist's Portfolio Value: $${portfolioTotal.toFixed(2)}`;
+      });
+    </script>
+  </body>
+</html>
