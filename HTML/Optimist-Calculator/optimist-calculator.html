@@ -119,8 +119,11 @@
         // Get a reference to the result element
         const result = document.querySelector('#result');
 
-        // Update the result element with the portfolio total
-        result.innerHTML = `Optimist's Portfolio Value: $${portfolioTotal.toFixed(2)}`;
+        // Use toLocaleString() to add commas to the portfolio total
+        const portfolioTotalWithCommas = portfolioTotal.toLocaleString();
+
+        // Update the result element with the formatted portfolio total
+        result.innerHTML = `Optimist's Portfolio Value: $${portfolioTotalWithCommas}`;
       });
     </script>
   </body>
