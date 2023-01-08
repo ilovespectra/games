@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>HNT Halving Countdown Clock</title>
+  <link href="https://fonts.cdnfonts.com/css/alarm-clock" rel="stylesheet">
+  <style>
+    /* Add some styling to the page */
+    body {
+      background-color: black;
+      color: white;
+      text-align: center;
+      font-family: 'courier new', sans-serif;
+      font-size: 40px;
+      background-image: url('images/rain2.gif');
+      background-size: 1000px;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    /* Add some styling to the countdown numbers */
+    .time-number {
+      font-family: 'alarm clock', sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <h3>HNT Halving Occurs in:</h3>
+  <div id="hnt-countdown"></div>
+  <script>
+    // Set the date we're counting down to
+
+    var hntCountdownDate = new Date("August 1, 2023 00:00:00").getTime();
+
+    // Update the count down every 1 second
+    var x = setInterval(function() {
+      // Get today's date and time
+      var now = new Date().getTime();
+
+      // Find the distance between now and the countdown date
+      var hntDistance = hntCountdownDate - now;
+
+      // Time calculations for days, hours, minutes and seconds
+      var hntDays = Math.floor(hntDistance / (1000 * 60 * 60 * 24));
+      var hntHours = Math.floor((hntDistance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var hntMinutes = Math.floor((hntDistance % (1000 * 60 * 60)) / (1000 * 60));
+      var hntSeconds = Math.floor((hntDistance % (1000 * 60)) / 1000);
+
+      // Display the result in the element with id="hnt-countdown"
+      document.getElementById("hnt-countdown").innerHTML =
+        '<span class="time-number">' + hntDays + '</span> days ' +
+        '<span class="time-number">' + hntHours + '</span> hours ' +
+        '<span class="time-number">' + hntMinutes + '</span> minutes ' +
+        '<span class="time-number">' + hntSeconds + '</span> seconds ';
+
+      // If the count down is finished, write some text
+      if (hntDistance < 0) {
+        clearInterval(x);
+        document.getElementById("hnt-countdown").innerHTML = "HNT Halving Occurred!";
+      }
+    }, 1000);
+  </script>
+</body>
+</html>

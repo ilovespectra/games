@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>btc Halving Countdown Clock</title>
+  <link href="https://fonts.cdnfonts.com/css/alarm-clock" rel="stylesheet">
+  <style>
+    /* Add some styling to the page */
+    body {
+      background-color: black;
+      color: white;
+      text-align: center;
+      font-family: 'courier new', sans-serif;
+      font-size: 40px;
+      background-image: url('images/rain.gif');
+      background-size: 1000px;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    /* Add some styling to the countdown numbers */
+    .time-number {
+      font-family: 'alarm clock', sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <h3>BTC Halving Occurs in Around:</h3>
+  <div id="btc-countdown"></div>
+  <script>
+    // Set the date we're counting down to
+
+    var btcCountdownDate = new Date("May 1, 2024 00:00:00").getTime();
+
+    // Update the count down every 1 second
+    var x = setInterval(function() {
+      // Get today's date and time
+      var now = new Date().getTime();
+
+      // Find the distance between now and the countdown date
+      var btcDistance = btcCountdownDate - now;
+
+      // Time calculations for days, hours, minutes and seconds
+      var btcDays = Math.floor(btcDistance / (1000 * 60 * 60 * 24));
+      var btcHours = Math.floor((btcDistance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var btcMinutes = Math.floor((btcDistance % (1000 * 60 * 60)) / (1000 * 60));
+      var btcSeconds = Math.floor((btcDistance % (1000 * 60)) / 1000);
+
+      // Display the result in the element with id="btc-countdown"
+      document.getElementById("btc-countdown").innerHTML =
+        '<span class="time-number">' + btcDays + '</span> days ' +
+        '<span class="time-number">' + btcHours + '</span> hours ' +
+        '<span class="time-number">' + btcMinutes + '</span> minutes ' +
+        '<span class="time-number">' + btcSeconds + '</span> seconds';
+
+      // If the count down is finished, write some text
+      if (btcDistance < 0) {
+        clearInterval(x);
+        document.getElementById("btc-countdown").innerHTML = "btc Halving Occurred!";
+      }
+    }, 1000);
+  </script>
+</body>
+</html>
