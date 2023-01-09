@@ -27,7 +27,7 @@
 <p>The trick to get these images looking right:</p><br>
 -Increase the width of the image you'd like edited to 150%<br>
 -Leave the height (Do not scale proportionally)<br>
--Reduce the image size dramatically to around 1 by 1 inch<br>
+-Reduce the image size dramatically to around an inch or two tall<br>
 -Reduce the resolution to 40-80px per inch. <br>
 <br>
 You can experiment with the proportions and resolution til you get the desired output.</p>
