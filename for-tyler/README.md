@@ -3,15 +3,15 @@ Hey hacker! Want to impress your little one with some kewl codez?
 <h1>Setup</h1>
 <h2>Python Installation</h2>
 <h3>For Windows:</h3>
-<br><br>
--Go to the official Python website (https://www.python.org/) and download the latest version of Python for Windows.<br>
--Run the installer and follow the instructions to install Python.<br>
--After the installation is complete, open the Command Prompt and type ```python``` to check if the installation was successful.<br>
--You should see the Python interpreter's prompt, which looks like ```>>>```
+<br>
+-Go to the official Python website (https://www.python.org/) and download the latest version of Python for Windows. <br>
+-Run the installer and follow the instructions to install Python. <br>
+-After the installation is complete, open the Command Prompt and type python to check if the installation was successful.<br>
+-You should see the Python interpreter's prompt, which looks like >>>
 <br>
 <h3>For Mac:</h3>
 <br>
-Macs usually come with python pre-installed, but you can check the version of python by opening terminal and typing ```python -V``` to check if the version that you downloaded is the one being used.
+Macs usually come with python pre-installed, but you can check the version of python by opening terminal and typing python -V to check if the version that you downloaded is the one being used.
 You should see the Python version.<br><br>
 -Go to the official Python website (https://www.python.org/) and download the latest version of Python for Mac.<br>
 -Run the installer and follow the instructions to install Python.<br><br>
