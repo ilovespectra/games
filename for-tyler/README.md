@@ -34,6 +34,8 @@ You can start using GitHub Desktop by creating a new repository, cloning an exis
 
 ## Cloning 
 
+<img src="/image/copy.png" alt="copyt" title="Copy">
+
 Open GitHub Desktop and log in to your GitHub account.
 
 Click on the "File" menu, then select "Clone repository."
