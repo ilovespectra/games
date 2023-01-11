@@ -12,4 +12,4 @@ def generate_response(file_path, width, typing_speed):
         time.sleep(typing_speed)
     print("\033[0m")
 
-generate_response("goggles.txt", 94, 0.0002)
+generate_response("/txt/goggles.txt", 94, 0.0002)
