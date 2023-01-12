@@ -17,3 +17,5 @@ const YOUR-TOKEN-HEREQuantity = Number(document.querySelector('#YOUR-TOKEN-HEREq
 ```
 + YOUR-TOKEN-HEREQuantity * YOUR-TOKEN-HEREAllTimeHigh
 ```
+<br>
+Other optional backgrounds in the image folder, simply change the source name in the html
