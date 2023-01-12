@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Speculator's Portfolio Calculator</title>
+  </head>
+  <style>
+      /* Add some styling to the page */
+      body {
+        background-color: black;
+        color: white;
+        text-align: center;
+        font-family: 'Geneva', sans-serif;
+        font-size: 25px;
+        background-image: url('images/city.gif');
+        background-size: 1000px;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+      #form {
+        display: inline-block;
+      }
+      label {
+        display: block;
+      }
+      input[type="number"] {
+        width: 100px;
+      }
+
+    </style>
+  <body>
+    <br><img src="images/sc.png" alt="Speculator's Calculator in ASCII" width="1000"/>
+    <p><b>This calulates the value of your portfolio <br> given the tokens achieve the following prices</b></p>
+    <form id="form">
+      <p><b>Enter the quantity of each token in your portfolio:</b></p><br>
+      <label>
+        BTC @ $1,000,000:
+        <input type="number" id="btc-quantity" value="0" min="0" step="0.00001">
+      </label>
+      <label>
+        ETH @ $10,000:
+        <input type="number" id="eth-quantity" value="0" min="0" step="0.00001">
+      </label>
+      <label>
+        SOL @ $1400:
+        <input type="number" id="sol-quantity" value="0" min="0" step="0.00001">
+      </label>
+      <label>
+        HNT @ $1000:
+        <input type="number" id="hnt-quantity" value="0" min="0" step="0.00001">
+      </label>
+      <label>
+        AKT @ $25:
+        <input type="number" id="akt-quantity" value="0" min="0" step="0.00001">
+      </label>
+      <label>
+        MATIC $10:
+        <input type="number" id="matic-quantity" value="0" min="0" step="0.00001">
+      </label>
+      <label>
+        BOP @ $1:
+        <input type="number" id="bop-quantity" value="0" min="0" step="0.00001">
+      </label>
+      <label>
+        BONK @ $0.0001:
+        <input type="number" id="bonk-quantity" value="0" min="0" step="0.00001">
+      </label>
+      <br>
+      <button type="submit">Cross your fingers!</button>
+    </form>
+
+    <p id="result"></p>
+
+    <script>
+      // Set the all time high prices
+      const hntAllTimeHigh = 1000;
+      const btcAllTimeHigh = 1000000;
+      const bopAllTimeHigh = 1;
+      const solAllTimeHigh = 1400;
+      const ethAllTimeHigh = 10000;
+      const maticAllTimeHigh = 10;
+      const aktAllTimeHigh = 25;
+      const bonkAllTimeHigh = 0.0001;
+
+      // Get the form element
+      const form = document.querySelector('#form');
+
+      // Add a submit event listener to the form
+      form.addEventListener('submit', (event) => {
+        // Prevent the form from submitting
+        event.preventDefault();
+
+        // Get the quantity of HNT tokens from the input field
+        const hntQuantity = Number(document.querySelector('#hnt-quantity').value);
+
+        // Get the quantity of BTC tokens from the input field
+        const btcQuantity = Number(document.querySelector('#btc-quantity').value);
+
+        // Get the quantity of BOP tokens from the input field
+        const bopQuantity = Number(document.querySelector('#bop-quantity').value);
+
+        // Get the quantity of SOL tokens from the input field
+        const solQuantity = Number(document.querySelector('#sol-quantity').value);
+
+        // Get the quantity of ETH tokens from the input field
+        const ethQuantity = Number(document.querySelector('#eth-quantity').value);
+
+        // Get the quantity of MATIC tokens from the input field
+        const maticQuantity = Number(document.querySelector('#matic-quantity').value);
+
+        // Get the quantity of AKT tokens from the input field
+        const aktQuantity = Number(document.querySelector('#akt-quantity').value);
+
+        // Get the quantity of BONK tokens from the input field
+        const bonkQuantity = Number(document.querySelector('#bonk-quantity').value);
+
+        // Calculate the total portfolio value
+        const portfolioTotal = hntQuantity * hntAllTimeHigh + btcQuantity * btcAllTimeHigh + bopQuantity * bopAllTimeHigh + solQuantity * solAllTimeHigh + ethQuantity * ethAllTimeHigh + maticQuantity * maticAllTimeHigh + aktQuantity * aktAllTimeHigh + bonkQuantity * bonkAllTimeHigh;
+
+        // Get a reference to the result element
+        const result = document.querySelector('#result');
+
+        // Use toLocaleString() to add commas to the portfolio total
+        const portfolioTotalWithCommas = portfolioTotal.toLocaleString();
+
+        // Update the result element with the formatted portfolio total
+        result.innerHTML = `Shoot for the moon: $${portfolioTotalWithCommas}`;
+      });
+    </script>
+  </body>
+</html>
