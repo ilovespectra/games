@@ -49,6 +49,10 @@
         <input type="number" id="hnt-quantity" value="0" min="0" step="0.00001">
       </label>
       <label>
+        MOBILE @ $0.01:
+        <input type="number" id="mobile-quantity" value="0" min="0" step="0.00001">
+      </label>
+      <label>
         AKT @ $25:
         <input type="number" id="akt-quantity" value="0" min="0" step="0.00001">
       </label>
@@ -74,6 +78,7 @@
       // Set the all time high prices
       const hntAllTimeHigh = 1000;
       const btcAllTimeHigh = 1000000;
+      const mobileAllTimeHigh = 0.01;
       const bopAllTimeHigh = 1;
       const solAllTimeHigh = 1400;
       const ethAllTimeHigh = 10000;
@@ -91,6 +96,9 @@
 
         // Get the quantity of HNT tokens from the input field
         const hntQuantity = Number(document.querySelector('#hnt-quantity').value);
+
+        // Get the quantity of MOBILE tokens from the input field
+        const mobileQuantity = Number(document.querySelector('#mobile-quantity').value);
 
         // Get the quantity of BTC tokens from the input field
         const btcQuantity = Number(document.querySelector('#btc-quantity').value);
@@ -114,7 +122,7 @@
         const bonkQuantity = Number(document.querySelector('#bonk-quantity').value);
 
         // Calculate the total portfolio value
-        const portfolioTotal = hntQuantity * hntAllTimeHigh + btcQuantity * btcAllTimeHigh + bopQuantity * bopAllTimeHigh + solQuantity * solAllTimeHigh + ethQuantity * ethAllTimeHigh + maticQuantity * maticAllTimeHigh + aktQuantity * aktAllTimeHigh + bonkQuantity * bonkAllTimeHigh;
+        const portfolioTotal = hntQuantity * hntAllTimeHigh + btcQuantity * btcAllTimeHigh + bopQuantity * bopAllTimeHigh + solQuantity * solAllTimeHigh + ethQuantity * ethAllTimeHigh + maticQuantity * maticAllTimeHigh + aktQuantity * aktAllTimeHigh + bonkQuantity * bonkAllTimeHigh + mobileQuantity * mobileAllTimeHigh;
 
         // Get a reference to the result element
         const result = document.querySelector('#result');
