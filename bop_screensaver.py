@@ -13,7 +13,7 @@ window_size = (1920, 1080)
 screen = pygame.display.set_mode(window_size, pygame.FULLSCREEN)
 
 # Set the window title
-pygame.display.set_caption("Space Screensaver")
+pygame.display.set_caption("BOP Screensaver")
 
 # Load the PNG image / # You will need to correct this reference, 
 # any image in your folder can be referenced directly, ie- "$/games/images/bop.png"
