@@ -1,11 +1,16 @@
 # Install nfty on ios, android, or desktop
-# You'll want to create your own topic to subscribe to, 
-# they're public so you'll get these if you subscribe to heliumdenver
+#
+# You'll want to create your own topic to subscribe to.
+# They're public, so you'll get a notification every time this file 
+# is cloned/deployed if you subscribe to 'heliumdenver'
 #
 # I'm getting a lot of push notifications on 'heliumdenver', and this is good!
 # It means folks are using this. But do keep that in mind, and be sure to modify 
 # your subscription here in the code to match what you'd like your subscription 
 # to be called when you're setting it up in the ntfy app!
+#
+# Anyone who subscribes to 'heliumdenver' will get a push notification 
+# everytime someone clones and runs this script! 
 
 import requests
 import time
