@@ -1,5 +1,11 @@
 # Install nfty on ios, android, or desktop
-# You'll want to create your own topic to subscribe to, they're public so you'll get these if you subscribe to heliumdenver
+# You'll want to create your own topic to subscribe to, 
+# they're public so you'll get these if you subscribe to heliumdenver
+#
+# I'm getting a lot of push notifications on 'heliumdenver', and this is good!
+# It means folks are using this. But do keep that in mind, and be sure to modify 
+# your subscription here in the code to match what you'd like your subscription 
+# to be called when you're setting it up in the ntfy app!
 
 import requests
 import time
@@ -11,7 +17,7 @@ def send_notification(message):
         'Tags': 'balloon'
     }
     data = message.replace('+', ' ')
-    response = requests.post('https://ntfy.sh/heliumdenver', headers=headers, data=data)
+    response = requests.post('https://ntfy.sh/heliumdenver', headers=headers, data=data) # modify your subscripton here 
     print(response.text)
 
 countdown_date =  time.mktime(time.strptime('April 18, 2023 10:00:00', '%B %d, %Y %H:%M:%S'))
