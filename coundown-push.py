@@ -17,9 +17,9 @@ import time
 
 def send_notification(message):
     headers = {
-        'Title': 'HeliumDenver',
-        'Priority': 'urgent',
-        'Tags': 'balloon'
+        'Title': 'HeliumDenver', # Feel free to modify this
+        'Priority': 'urgent', # Doesn't need to be urgent
+        'Tags': 'balloon' # EMOJIS!
     }
     data = message.replace('+', ' ')
     response = requests.post('https://ntfy.sh/heliumdenver', headers=headers, data=data)
@@ -38,8 +38,6 @@ while True:
     elif remaining_time > 86400:
         # Send notification 24 hours before event
         message = f'Just {int(remaining_time/86400)} days until the Solana migration!'
-        send_notification(message)
-        break
     elif remaining_time > 43200:
         # Send notification 12 hours before event
         message = 'Just 12 hours until the Solana migration!'
@@ -55,9 +53,14 @@ while True:
     elif remaining_time > 3600:
         # Send notification 1 hour before event
         message = 'Just 1 hour until the Solana migration!'
-    else:
+    elif remaining_time > 0:
         # Send notification every 10 minutes in the last hour
-        message = 'The Solana migration is happening now!'
+        message = f'Only {int(remaining_time/60)} minutes until the Solana migration!'
+    else:
+        # The event has already started, so break out of the loop
+        break
+
     send_notification(message)
     time.sleep(600) # wait for 10 minutes before sending the next notification
+
 
