@@ -6,7 +6,11 @@ This is useful for handling private keys between multiple devices, or engraving 
 
 ## Encrypt
 
-Enter text only with spaces, no commas or punctuation:
+Enter the following command:
+```
+python3 encrypt.py
+```
+Enter your text:
 ```
 Enter text to encrypt: this takes your seed phrase from words from string and encrypts them
 ```
@@ -14,6 +18,11 @@ Enter text to encrypt: this takes your seed phrase from words from string and en
 Copy response.
 
 ## Decrypt 
+
+Enter the following command:
+```
+python3 decrypt.py
+```
 
 Paste response:
 ```
