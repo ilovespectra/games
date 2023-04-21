@@ -1,8 +1,8 @@
-# Seedphrase Encryptor 
+# Secret Message Encryptor 
 
-Use the `encrypt.py` function to turn your seedphrase into a random string of 2-3 digit numbers, and decrypt them with the `decrypt.py` function.
+Use the `encrypt.py` function to turn a phrase into a random string of 2-3 digit numbers, and decrypt them with the `decrypt.py` function.
 
-This is useful for handling private keys between multiple devices, or engraving the encryption on metal without comprimising your security. Not 100% secure, not bomb proof, but still useful.
+This is useful for handling secrets between multiple devices, or engraving the encryption on metal without comprimising your security. Not 100% secure, not bomb proof, but still useful.
 
 ## Encrypt
 
