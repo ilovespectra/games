@@ -1,0 +1,3 @@
+# gpt prompts
+
+cheat codes
