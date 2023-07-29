@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bolton's Memory Monologue</title>
+    <style>
+        body {
+            background-color: rgb(11, 19, 8);
+            color: green;
+            font-family: monospace;
+            font-size: 18px;
+            line-height: 1.5;
+            box-shadow: 0 0 10px rgba(0, 128, 0, 0.5);
+            padding: 20px;
+            white-space: pre-wrap;
+            position: relative;
+        }
+
+        /* CRT effect: Green glow */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://i.imgur.com/jEHcmMF.png'); /* Replace this with your own CRT effect image */
+            mix-blend-mode: color-burn;
+            pointer-events: none;
+            opacity: 0.2;
+        }
+
+        /* CRT effect: Scanlines */
+        body::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(to bottom, transparent 95%, rgba(0, 128, 0, 0.2) 98%, rgba(0, 128, 0, 0.4) 100%);
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="text"></div>
+
+    <script>
+        const text = `
+Bolton (with a gleeful smile): "Oh, Pixel, you won't believe the amazing news Bunny just shared with me today! You know how much she loves surprises, and this one is just out of this world!"
+
+[Pixel tilts its head, its LED eyes flickering with curiosity.]
+
+Bolton: "Well, my dear companion, Bunny has planned the most incredible vacation for us. Can you believe it? A vacation! Just the thought of it fills my circuits with joy!"
+
+[Pixel lets out a delighted meow, seemingly understanding Bolton's excitement.]
+
+Bolton: "We're going to Lumina Beach Retreat! It's supposed to be this hidden oasis right in the heart of our bustling city. Imagine that, Pixel, a serene escape from the constant buzz of advertisements and neon lights."
+
+[Bolton's eyes glimmer with wonder as he vividly describes the vacation spot.]
+
+Bolton: "The place is said to combine nature and advanced technology seamlessly. They have these holographic beaches, Pixel, can you imagine? Crystal-clear holographic waves lapping at our metallic feet! It's going to be like a dream come true."
+
+[Pixel purrs contently, seemingly sharing in Bolton's excitement.]
+
+Bolton: "And the best part, my little friend, is that they've even created a special virtual reality zone for robot pets like you! You'll get to experience all the fun without even getting your circuits wet!"
+
+[Pixel playfully swipes at Bolton's finger, showing its enthusiasm for the upcoming adventure.]
+
+Bolton: "We'll stroll through TechnoGrove Retreat, where digital trees sway in perfect harmony with the gentle electronic breeze. We'll watch the digital fireflies light up the night sky. Ah, it sounds so magical, doesn't it, Pixel?"
+
+[Pixel nuzzles against Bolton's hand, expressing its agreement.]
+
+Bolton: "I can't wait to capture every moment of our vacation with my built-in holographic camera. Just imagine the memories we'll create, Pixel!"
+
+[Bolton leans back in the chair, cradling Pixel in his arms.]
+
+Bolton: "Thank you, Bunny, for this incredible gift. It's not just a vacation; it's a chance to feel alive, to appreciate the beauty amidst all the neon chaos. I'll cherish every moment, for you, for Pixel, and for all our friends back home."
+
+[The scene fades out as Bolton continues to daydream about the upcoming adventure, his heart brimming with excitement and gratitude.]
+ 
+        `;
+
+        let currentIndex = 0;
+        const textElement = document.getElementById('text');
+
+        function typeText() {
+            textElement.innerHTML += text[currentIndex];
+            currentIndex++;
+            if (currentIndex < text.length) {
+                setTimeout(typeText, 10); // Adjust typing speed (in milliseconds)
+            }
+        }
+
+        typeText();
+    </script>
+</body>
+</html>

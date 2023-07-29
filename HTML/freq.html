@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sine Wave Matching Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: black;
+    }
+
+    .computer-screen {
+      background-image: url('https://cdn.discordapp.com/attachments/1051281685234327613/1134129792195768360/screen.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+      width: 700px; /* Adjust the size of the computer screen */
+      height: 500px; /* Adjust the size of the computer screen */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 10px; /* Add margin to create the computer screen border */
+      padding: 20px; /* Add padding to separate content from border */
+      position: relative; /* Add position relative to contain CRT effect */
+    }
+
+    
+
+    .gameboard {
+      text-align: center;
+      position: absolute; /* Add position absolute to contain CRT effect */
+      width: 100%; /* Set the gameboard width to match the computer screen width */
+      height: 100%; /* Set the gameboard height to match the computer screen height */
+      overflow: hidden; /* Hide overflow to contain CRT effect */
+    }
+
+    canvas {
+      border: 1px solid black;
+      background-color: black;
+      width: 100%;
+      height: 100%;
+    }
+
+    .controls {
+      /* Your control container styles */
+      position: absolute;
+      bottom: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      padding: 10px 0;
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    /* Knob styles */
+    .knob-wrapper {
+      display: inline-block;
+      position: relative;
+      margin: 10px;
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    .knob {
+      width: 60px;
+      height: 60px;
+      appearance: none;
+      border: none;
+      background-color: black;
+      border-radius: 50%;
+      transform-origin: center center;
+      font-family: 'Courier New', Courier, monospace;
+      transform: rotate(-45deg);
+      box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.3), 0 -2px 2px rgba(255, 255, 255, 0.3);
+    }
+
+    .knob::-webkit-slider-thumb {
+      appearance: none;
+      width: 15px;
+      height: 15px;
+      background-color: black;
+      border-radius: 50%;
+      border: 2px solid #ccc;
+      cursor: pointer;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    .knob::-webkit-slider-thumb:hover {
+      background-color: rgb(199, 199, 222);
+    }
+
+    .knob::-webkit-slider-thumb:active {
+      box-shadow: 0 1px 4px rgba(130, 122, 122, 0.5);
+    }
+
+    .offset-slider {
+      width: 100px;
+      margin-top: 10px;
+    }
+
+    .game-title {
+      font-size: 24px;
+      color: white;
+      margin-bottom: 10px;
+    }
+
+    .values {
+      color: green;
+      font-family: 'Courier New', Courier, monospace;
+      margin-top: 10px;
+      font-weight: bolder;
+      display: flex;
+      justify-content: center;
+      box-shadow: 0 4px 8px rgba(0, 128, 0, 0.5);
+    }
+
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgb(26, 37, 17);
+      
+      /* position: relative; */
+      overflow: hidden;
+      border-radius: 20px;
+      /* box-shadow: 0 0 10px rgba(0, 128, 0, 0.5); */
+      text-align: center;
+      /* position: relative; */
+
+      border: 1px solid green;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 128, 0, 0.5);
+      z-index: 2; /* Make sure the modal is on top of the computer screen */
+    }
+
+    /* Override modal styles for CRT effect */
+    .modal-content {
+      box-shadow: none;
+      border: 2px solid green;
+      width: 70%;
+      height: 70%;
+      transform: translate(-50%, -50%) perspective(1000px) rotateX(1.5deg) scale(1.02);
+    }
+
+    .modal-text {
+      color: green;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .modal-button {
+      background-color: rgb(26, 37, 17);
+      border: 2px solid green;
+      border-radius: 10px;
+      color: green;
+      box-shadow: 0 0 10px rgba(0, 128, 0, 0.5);
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 18px;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+
+    .modal-button:hover {
+      background-color: green;
+      box-shadow: 0 0 20px rgba(0, 128, 0, 0.5);
+      color: black;
+    }
+
+    /* CRT effect styles */
+    .crt-container {
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      box-shadow: 0 0 10px rgba(0, 128, 0, 0.5);
+      text-align: center;
+      position: relative;
+      width: 67%;
+      height: 58%;
+    }
+
+    .crt-container::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: linear-gradient(rgba(0, 0, 0, 0.2) 1px, transparent 1px);
+      background-size: 100% 8px;
+      pointer-events: none;
+    }
+
+    .crt-container::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: linear-gradient(to right, rgba(0, 128, 0, 0.2) 10px, transparent 10px);
+      background-size: 10px 100%;
+      pointer-events: none;
+    }
+
+    /* Slight bulging effect */
+    .crt-container {
+      transform: perspective(1000px) rotateX(1.5deg) scale(1.02);
+    }
+
+    /* Override modal styles for CRT effect */
+    .modal-content {
+      box-shadow: none;
+      border: 2px solid green;
+      width: 70%;
+      height: 70%;
+      transform: translate(-50%, -50%) perspective(1000px) rotateX(1.5deg) scale(1.02);
+    }
+
+  </style>
+</head>
+<body>
+  <div class="computer-screen">
+    <div class="crt-container gameboard">
+      <canvas id="sineCanvas" width="600" height="600"></canvas>
+      <div class="controls">
+        <div class="knob-wrapper">
+          <input type="range" id="timeInput" class="knob" min="0" max="1000" step="10" value="100">
+          <div style="color: red;"></div>
+          <div style="color: red;" id="redTimeValue">1.00</div>
+        </div>
+        <div class="knob-wrapper">
+          <input type="range" id="amplitudeInput" class="knob" min="1" max="100" step="5" value="50">
+          <div style="color: red;"></div>
+          <div style="color: red;" id="redAmplitudeValue">50</div>
+        </div>
+        <div class="knob-wrapper">
+          <input type="range" id="greenLineTimeInput" class="knob" min="0" max="1000" step="10" value="250" style="background-color: black;">
+          <div style="color: green;"></div>
+          <div style="color: green;" id="greenTimeValue">1.00</div>
+        </div>
+        <div class="knob-wrapper">
+          <input type="range" id="greenLineAmplitudeInput" class="knob" min="1" max="100" step="5" value="25" style="background-color: black;">
+          <div style="color: green;"></div>
+          <div style="color: green;" id="greenAmplitudeValue">25</div>
+        </div>
+        <div class="knob-wrapper">
+          <input type="range" id="greenLineOffsetSlider" class="knob" min="0" max="180" step="1" value="10" style="background-color: black;">
+          <div style="color: blue;"></div>
+          <div style="color: blue;" id="greenOffsetValue">10</div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <!-- Modal -->
+    <div class="modal" id="modal">
+        <div class="modal-text">ACCESS GRANTED</div>
+        <button class="modal-button" id="enterButton">ENTER</button>
+    </div>
+  </div>
+</div>
+
+  <script>
+    const canvas = document.getElementById('sineCanvas');
+    const ctx = canvas.getContext('2d');
+    const timeInput = document.getElementById('timeInput');
+    const amplitudeInput = document.getElementById('amplitudeInput');
+    const greenLineTimeInput = document.getElementById('greenLineTimeInput');
+    const greenLineAmplitudeInput = document.getElementById('greenLineAmplitudeInput');
+    const greenLineOffsetSlider = document.getElementById('greenLineOffsetSlider');
+    const modal = document.getElementById('modal');
+    const enterButton = document.getElementById('enterButton');
+
+    let frequency = 1;
+    let amplitude = 50;
+    let greenLineFrequency = 1;
+    let greenLineAmplitude = 25;
+    let greenLineOffset = 10;
+
+    function drawSineWave() {
+      canvas.width = 600;
+      canvas.height = 600;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      ctx.strokeStyle = 'white';
+      ctx.lineWidth = 0.5;
+      for (let y = 0; y <= canvas.height; y += 40) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(canvas.width, y);
+        ctx.stroke();
+      }
+
+      ctx.beginPath();
+      ctx.moveTo(0, canvas.height / 2);
+
+      for (let x = 0; x < canvas.width; x++) {
+        const y = canvas.height / 2 + amplitude * Math.sin(frequency * x / 50);
+        ctx.lineTo(x, y);
+      }
+
+      ctx.strokeStyle = 'rgba(255, 0, 0, 0.8)'; /* Set the red line transparency */
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(0, canvas.height / 2);
+
+      for (let x = 0; x < canvas.width; x++) {
+        const y = canvas.height / 2 + greenLineAmplitude * Math.sin(greenLineFrequency * x / 50 + (Math.PI * greenLineOffset) / 180);
+        ctx.lineTo(x, y);
+      }
+
+      ctx.strokeStyle = 'rgba(0, 255, 0, 0.8)'; /* Set the green line transparency */
+      ctx.stroke();
+
+      redTimeValue.textContent = frequency.toFixed(2);
+      redAmplitudeValue.textContent = amplitude;
+      greenTimeValue.textContent = greenLineFrequency.toFixed(2);
+      greenAmplitudeValue.textContent = greenLineAmplitude;
+      greenOffsetValue.textContent = greenLineOffset;
+    }
+
+    function updateSineWave() {
+      frequency = timeInput.value / 50;
+      amplitude = amplitudeInput.value;
+      greenLineFrequency = greenLineTimeInput.value / 50;
+      greenLineAmplitude = greenLineAmplitudeInput.value;
+      greenLineOffset = greenLineOffsetSlider.value;
+
+      drawSineWave();
+    }
+
+    timeInput.addEventListener('input', updateSineWave);
+    amplitudeInput.addEventListener('input', updateSineWave);
+    greenLineTimeInput.addEventListener('input', updateSineWave);
+    greenLineAmplitudeInput.addEventListener('input', updateSineWave);
+    greenLineOffsetSlider.addEventListener('input', updateSineWave);
+
+    function handleKeyPress(event) {
+      const key = event.key.toLowerCase();
+
+      if (key === 'w') {
+        amplitudeInput.value = Math.min(100, parseInt(amplitudeInput.value) + 5);
+      } else if (key === 's') {
+        amplitudeInput.value = Math.max(1, parseInt(amplitudeInput.value) - 5);
+      }
+
+      if (key === 'a') {
+        timeInput.value = Math.max(0, parseInt(timeInput.value) - 10);
+      } else if (key === 'd') {
+        timeInput.value = Math.min(1000, parseInt(timeInput.value) + 10);
+      }
+
+      updateSineWave();
+    }
+
+    document.addEventListener('keypress', handleKeyPress);
+
+    drawSineWave();
+
+    // SET YOUR PASSWORD HERE!
+    function checkPassword() {
+      const passwordTime = 1.20;           //*********************
+      const passwordAmplitude = 16;        //
+      const passwordGreenTime = 1.60;      // modify these values
+      const passwordGreenAmplitude = 71;   //
+      const passwordGreenOffset = 150;     //********************* 
+
+      if (
+        parseFloat(redTimeValue.textContent) === passwordTime &&
+        parseInt(redAmplitudeValue.textContent) === passwordAmplitude &&
+        parseFloat(greenTimeValue.textContent) === passwordGreenTime &&
+        parseInt(greenAmplitudeValue.textContent) === passwordGreenAmplitude &&
+        parseInt(greenOffsetValue.textContent) === passwordGreenOffset
+      ) {
+        modal.style.display = 'block';
+      }
+    }
+
+    enterButton.addEventListener('click', () => {
+      // Replace 'yourURL' with the desired URL
+      window.location.href = 'yourURL';
+    });
+
+    setInterval(checkPassword, 100);
+  </script>
+</body>
+</html>

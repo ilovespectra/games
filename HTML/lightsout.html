@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lights Out - Puzzle 1</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: top;
+            min-height: 100vh;
+            background-image: url('https://cdn.discordapp.com/attachments/1051281685234327613/1134946050533249064/image.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-attachment: fixed;
+            overflow: hidden;
+            transform: rotateX(-40deg);
+        }
+
+        .game-board-container {
+            perspective: 1000px;
+            transform-style: preserve-3d;
+            transform: rotateX(-40deg);
+        }
+
+        .game-board {
+            width: 400px;
+            height: 400px;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(5, 1fr);
+            gap: 1px;
+            background-color: rgba(0, 102, 0, 0.099);
+            background-attachment: fixed;
+            /* border: 4px solid #0f0; */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-attachment: fixed;
+            overflow: hidden;
+            position: relative;
+            /* box-shadow: 0 0 20px rgba(0, 255, 0, 0.5), inset 0 0 10px rgba(0, 48, 0, 0.2); */
+            border-radius: 10px;
+            transform: perspective(500px) rotateX(1.2deg) rotateY(1.2deg);
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .cell {
+            width: 85%;
+            height: 35px;
+            background-color: rgba(27, 110, 27, 0.465);
+            border: 3px solid rgba(34, 41, 29, 0.64);
+            border-radius: 7px;
+            margin-top: 1px;
+            margin-left: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        .cell.on {
+            background-color: rgba(12, 215, 12, 0.812);
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.63), inset 0 0 5px rgba(0, 48, 0, 0.2);
+        }
+
+        .cell:active {
+            transform: translateY(2px);
+        }
+
+        .scanlines {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: repeating-linear-gradient(to bottom, rgba(38, 38, 38, 0.2) 1px, transparent 2px);
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 40%;
+            transform: translate(-50%, -50%);
+            background-color: rgb(23, 142, 23);
+            padding: 20px;
+            border: 4px solid rgb(25, 42, 25);
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5), inset 0 0 10px rgba(0, 48, 0, 0.2);
+            z-index: 9999;
+        }
+
+        .modal-content {
+            font-size: 24px;
+            color: #76d468;
+            text-shadow: #0f0;
+            font-weight: bolder;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .modal-link {
+            display: block;
+            margin-top: 20px;
+            font-size: 20px;
+            color: #8fd254;
+            text-shadow: #0f0;
+            text-decoration: none;
+        }
+
+        .reset-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100px;
+            height: 25px;
+            margin-top: 110px;
+            margin-left: 120px;
+            background-color: rgba(255, 0, 0, 0.698);
+            border: none;
+            color: #fff;
+            font-size: 18px;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5), inset 0 0 10px rgba(48, 0, 0, 0.2);
+            z-index: 2;
+        }
+
+        .reset-button:focus {
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+        <div class="game-board-container">
+    <div class="game-board" onclick="toggleLight(event)">
+        <div class="scanlines"></div>
+        <div class="cell" data-row="1" data-col="1"></div>
+        <div class="cell" data-row="1" data-col="2"></div>
+        <div class="cell" data-row="1" data-col="3"></div>
+        <div class="cell" data-row="1" data-col="4"></div>
+        <div class="cell" data-row="1" data-col="5"></div>
+        <div class="cell" data-row="2" data-col="1"></div>
+        <div class="cell" data-row="2" data-col="2"></div>
+        <div class="cell" data-row="2" data-col="3"></div>
+        <div class="cell" data-row="2" data-col="4"></div>
+        <div class="cell" data-row="2" data-col="5"></div>
+        <div class="cell" data-row="3" data-col="1"></div>
+        <div class="cell" data-row="3" data-col="2"></div>
+        <div class="cell" data-row="3" data-col="3"></div>
+        <div class="cell" data-row="3" data-col="4"></div>
+        <div class="cell" data-row="3" data-col="5"></div>
+        <div class="cell" data-row="4" data-col="1"></div>
+        <div class="cell" data-row="4" data-col="2"></div>
+        <div class="cell" data-row="4" data-col="3"></div>
+        <div class="cell" data-row="4" data-col="4"></div>
+        <div class="cell" data-row="4" data-col="5"></div>
+        <div class="cell" data-row="5" data-col="1"></div>
+        <div class="cell" data-row="5" data-col="2"></div>
+        <div class="cell" data-row="5" data-col="3"></div>
+        <div class="cell" data-row="5" data-col="4"></div>
+        <div class="cell" data-row="5" data-col="5"></div>
+    </div>
+
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            HACK COMPLETE
+            <a class="modal-link" href="https://example.com">ENTER</a>
+        </div>
+    </div>
+
+    <button class="reset-button" onclick="resetGame()">      </button>
+
+    </div>
+
+    <script>
+        // Function to toggle light and adjacent lights
+        function toggleLight(event) {
+            const cell = event.target;
+            if (cell.classList.contains("cell")) {
+                const row = parseInt(cell.getAttribute("data-row"));
+                const col = parseInt(cell.getAttribute("data-col"));
+                toggleCellState(row, col);
+                toggleCellState(row - 1, col);
+                toggleCellState(row + 1, col);
+                toggleCellState(row, col - 1);
+                toggleCellState(row, col + 1);
+                checkGameCompletion();
+            }
+        }
+
+        // Function to toggle the state of a cell (on/off)
+        function toggleCellState(row, col) {
+            const cell = document.querySelector(`[data-row="${row}"][data-col="${col}"]`);
+            if (cell) {
+                cell.classList.toggle("on");
+            }
+        }
+
+        // Function to set up Puzzle 1 (Mode 1)
+        function startPuzzle1() {
+            const cells = document.getElementsByClassName("cell");
+            for (const cell of cells) {
+                cell.classList.remove("on");
+            }
+
+            const litButtons = [11, 13, 15];
+            for (const button of litButtons) {
+                const cell = document.querySelector(`[data-row="3"][data-col="${button % 5 === 0 ? 5 : button % 5}"]`);
+                if (cell) {
+                    cell.classList.add("on");
+                }
+            }
+        }
+
+        function checkGameCompletion() {
+            const onCells = document.getElementsByClassName("cell on");
+            if (onCells.length === 0) {
+                const modal = document.getElementById("modal");
+                modal.style.display = "block";
+            }
+        }
+
+        // Function to reset the game board
+        function resetGame() {
+            const cells = document.getElementsByClassName("cell");
+            for (const cell of cells) {
+                cell.classList.remove("on");
+            }
+
+            // Reset Puzzle 1
+            startPuzzle1();
+
+            // Hide the modal
+            const modal = document.getElementById("modal");
+            modal.style.display = "none";
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            startPuzzle1();
+        });
+    </script>
+</body>
+</html>

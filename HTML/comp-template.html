@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bolton's Databank Pro</title>
+    <style>
+        /* Set the background */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Courier New", monospace;
+            background-color: black;
+            color: green;
+            font-size: 24px;
+            height: 100vh;
+        }
+
+        /* Finder bar */
+        .finder-bar {
+            display: flex;
+            align-items: center;
+            background-color: black;
+            color: green;
+            padding: 10px;
+            font-size: 20px;
+            border-bottom: 2px solid green;
+        }
+
+        /* File Explorer columns */
+        .columns {
+            display: flex;
+            flex-wrap: nowrap;
+            height: calc(100vh - 40px);
+        }
+
+        .column {
+            flex: 1;
+            padding: 20px;
+            border-right: 2px solid green;
+            max-height: 100%;
+            overflow-y: auto;
+        }
+
+        /* Glowing effect */
+        .glow {
+            color: green;
+            text-shadow: 0 0 10px green;
+        }
+
+        /* Highlight effect */
+        .folder, .file, .image {
+            transition: background-color 0.2s ease;
+        }
+
+        .folder:hover, .file:hover, .image:hover {
+            background-color: rgba(0, 128, 0, 0.2);
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1;
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: black;
+            border: 1px solid green;
+            box-shadow: 0 4px 8px rgba(0, 128, 0, 0.5);
+            width: 60%;
+            height: 60%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px;
+            max-height: 100%;
+        }
+
+        /* CRT effect styles */
+        .crt-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(0, 128, 0, 0.5);
+            height: 100vh;
+        }
+
+        .crt-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.2) 1px, transparent 1px);
+            background-size: 100% 8px;
+            pointer-events: none;
+        }
+
+        .crt-container::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(to right, rgba(0, 128, 0, 0.2) 10px, transparent 10px);
+            background-size: 10px 100%;
+            pointer-events: none;
+        }
+
+        /* Slight bulging effect */
+        .crt-container {
+            transform: perspective(1000px) rotateX(1.5deg) scale(1.02);
+        }
+
+        /* Override modal styles for CRT effect */
+        .modal-content {
+            box-shadow: none;
+            border: 2px solid green;
+            width: 70%;
+            height: 70%;
+            transform: translate(-50%, -50%) perspective(1000px) rotateX(1.5deg) scale(1.02);
+        }
+
+        /* Folder icon */
+        .folder-icon::before {
+            content: ">";
+            margin-right: 5px;
+        }
+
+        /* Image centering */
+        .modal-image img {
+            width: 250px;
+            height: 250px;
+            display: block;
+            margin: 0 auto;
+            object-fit: contain;
+        }
+
+        /* Close button */
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: green;
+            font-size: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="crt-container">
+    <!-- Finder bar -->
+    <div class="finder-bar">
+        Bolton Bolts HD
+    </div>
+
+    <!-- File Explorer columns -->
+    <div class="columns">
+        <!-- Column 1 -->
+        <div class="column">
+            <div class="folder glow folder-icon" onclick="openFolder('pics')">pics</div>
+        </div>
+
+        <!-- Column 2 -->
+        <div class="column" id="column2"></div>
+
+        <!-- Column 3 -->
+        <div class="column" id="column3"></div>
+    </div>
+
+    <!-- Modal for File Contents -->
+    <div class="modal" id="fileModal">
+        <div class="modal-content crt-container">
+            <div class="modal-title-bar">
+                <div class="modal-title">File Contents</div>
+                <div class="modal-close" onclick="closeModal()">x</div>
+            </div>
+            <div class="modal-text" id="fileContents"></div>
+            <div class="modal-image" id="fileImage"></div>
+            <div class="modal-task-bar">
+                
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Files and Folders data
+        const files = {
+            pics: ['bunny1', 'bunny2']
+        };
+
+        const picContents = {
+            'bunny1': '<img src="https://cdn.discordapp.com/attachments/1051281685234327613/1134513343621759106/img2.png" alt="Bunny 1">',
+            'bunny2': '<img src="https://cdn.discordapp.com/attachments/1051281685234327613/1134513343932145836/img1.png" alt="Bunny 2">'
+        };
+
+        function openFolder(folderName) {
+            const fileList = files[folderName].map(file => `<div class="file glow" onclick="openFile('${folderName}', '${file}')">${file}</div>`);
+            const column2 = document.getElementById('column2');
+            column2.innerHTML = fileList.join('');
+            document.getElementById('column3').innerHTML = '';
+        }
+
+        function openFile(folderName, fileName) {
+            const fileContents = picContents[fileName];
+            showFileModal(fileName, fileContents);
+        }
+
+        function showFileModal(fileName, contents) {
+            const fileContents = document.getElementById('fileContents');
+            fileContents.innerHTML = contents;
+            document.getElementById('fileImage').innerHTML = '';
+            const fileModal = document.getElementById('fileModal');
+            fileModal.style.display = 'block';
+        }
+
+        function closeModal() {
+            const fileModal = document.getElementById('fileModal');
+            fileModal.style.display = 'none';
+        }
+    </script>
+    </div>
+</body>
+</html>
