@@ -16,4 +16,3 @@ then hit enter. For example:
 ```
 Python3 minisnek.py
 ```
-
