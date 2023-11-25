@@ -53,6 +53,10 @@
         <input type="number" id="mobile-quantity" value="0" min="0" step="0.00001">
       </label>
       <label>
+        IOT:
+        <input type="number" id="iot-quantity" value="0" min="0" step="0.00001">
+      </label>
+      <label>
         MATIC:
         <input type="number" id="matic-quantity" value="0" min="0" step="0.00001">
       </label>
@@ -66,7 +70,11 @@
       </label>
       <label>
         BONK:
-        <input type="number" id="bonk-quantity" value="0" min="0" step="0.00001">
+        <input type="number" id="bonk-quantity" value="0" min="0" step="0.00000001">
+      </label>
+      <label>
+        GUAC:
+        <input type="number" id="guac-quantity" value="0" min="0" step="0.00000001">
       </label>
       <br>
       <button type="submit">Cross your fingers!</button>
@@ -79,12 +87,14 @@
       const hntAllTimeHigh = 55.22;
       const mobileAllTimeHigh = 0.002408;
       const btcAllTimeHigh = 65222;
+      const iotAllTimeHigh = 0.003927;
       const bopAllTimeHigh = 0.28;
       const solAllTimeHigh = 259.01;
       const ethAllTimeHigh = 4811;
       const maticAllTimeHigh = 2.92;
       const aktAllTimeHigh = 8.08;
       const bonkAllTimeHigh = 0.000004922;
+      const guacAllTimeHigh = 0.000000002105;
 
       // Get the form element
       const form = document.querySelector('#form');
@@ -96,6 +106,12 @@
 
         // Get the quantity of HNT tokens from the input field
         const hntQuantity = Number(document.querySelector('#hnt-quantity').value);
+
+        // Get the quantity of HNT tokens from the input field
+        const guacQuantity = Number(document.querySelector('#guac-quantity').value);
+
+        // Get the quantity of HNT tokens from the input field
+        const iotQuantity = Number(document.querySelector('#iot-quantity').value);
 
         // Get the quantity of MOBILE tokens from the input field
         const mobileQuantity = Number(document.querySelector('#mobile-quantity').value);
@@ -122,7 +138,7 @@
         const bonkQuantity = Number(document.querySelector('#bonk-quantity').value);
 
         // Calculate the total portfolio value
-        const portfolioTotal = hntQuantity * hntAllTimeHigh + btcQuantity * btcAllTimeHigh + bopQuantity * bopAllTimeHigh + solQuantity * solAllTimeHigh + ethQuantity * ethAllTimeHigh + maticQuantity * maticAllTimeHigh + aktQuantity * aktAllTimeHigh + bonkQuantity * bonkAllTimeHigh + mobileQuantity * mobileAllTimeHigh;
+        const portfolioTotal = hntQuantity * hntAllTimeHigh + btcQuantity * btcAllTimeHigh + bopQuantity * bopAllTimeHigh + solQuantity * solAllTimeHigh + ethQuantity * ethAllTimeHigh + maticQuantity * maticAllTimeHigh + aktQuantity * aktAllTimeHigh + bonkQuantity * bonkAllTimeHigh + mobileQuantity * mobileAllTimeHigh * iotAllTimeHigh * guacAllTimeHigh;
 
         // Get a reference to the result element
         const result = document.querySelector('#result');
